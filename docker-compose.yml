@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  python:
+    image: martinmille731/dp3d:python-api  
+    ports:
+      - "8000:8000"
+    networks:
+      - main
+
+  front:
+    image: martinmille731/dp3d:frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - python
+    networks:
+      - main
+    environment:
+        - NEXT_PUBLIC_API_URL=https://api.dp3d.junia.social
+
+
+networks:
+  main:
+    driver: bridge
